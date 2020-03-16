@@ -123,7 +123,7 @@ Forecasting <- function(data_input, fh, nts, Preprocessing, Dist_type, path, clu
     spanw <- 18
   }
   
-  limit <- 300*frequency(data_input)
+  limit <- 30*frequency(data_input)
   if (length(data_input)>limit){
     data_input <- tail(data_input, limit)
   }
@@ -155,9 +155,9 @@ Forecasting <- function(data_input, fh, nts, Preprocessing, Dist_type, path, clu
   Scale_ref <- lapply(c(1:length(insample_ref)), function(x) as.numeric(tail(insample_ref[[x]],1)) )
   Scale_tar <- as.numeric(tail(insample_tar,1))
   
-  insample_ref_scale <- lapply(c(1:length(insample_ref)), function(x) insample_ref[[x]]+0.1/Scale_ref[[x]]+0.1) 
-  outsample_ref_scale <- lapply(c(1:length(outsample_ref)), function(x) outsample_ref[[x]]+0.1/Scale_ref[[x]]+0.1) 
-  insample_tar_scale <- insample_tar+0.1/Scale_tar+0.1
+  insample_ref_scale <- lapply(c(1:length(insample_ref)), function(x) insample_ref[[x]]/Scale_ref[[x]]) 
+  outsample_ref_scale <- lapply(c(1:length(outsample_ref)), function(x) outsample_ref[[x]]/Scale_ref[[x]]) 
+  insample_tar_scale <- insample_tar/Scale_tar
   
   # Compute distances
   if (Dist_type==1){
