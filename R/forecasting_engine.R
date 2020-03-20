@@ -123,7 +123,7 @@ Forecasting <- function(data_input, fh, nts, Preprocessing, Dist_type, path, clu
     spanw <- 18
   }
   
-  limit <- 30*frequency(data_input)
+  limit <- min(ref_info$lengths)
   if (length(data_input)>limit){
     data_input <- tail(data_input, limit)
   }
